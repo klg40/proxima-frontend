@@ -35,6 +35,7 @@ export default {
             !this.virtualMouse ? this.virtualMouse = true : false;
             this.$refs.cursor.style.top = arr[1] + 'px';
             this.$refs.cursor.style.left = arr[0] + 'px';
+            // this.$refs.cursor.style.transform = `translate(${arr[0]}px,${arr[1]}px)`
         },
         ClickElement : function( coordsElement ){
             let x = coordsElement[0];
@@ -43,10 +44,10 @@ export default {
             element.click();
         },
         ObserverResize : function() {
-            let sizeWin = window.innerWidth;
+            let sizeWin = document.body.clientWidth;
             this.ws.send(JSON.stringify({ type : 'clientWidth', value : sizeWin }));
             window.addEventListener('resize', function( event ) {
-                this.ws.send(JSON.stringify({ type : 'clientWidth', value : event.srcElement.innerWidth }))
+                this.ws.send(JSON.stringify({ type : 'clientWidth', value : document.body.clientWidth }))
             });
             this.observerResize = true;
         },
@@ -55,7 +56,7 @@ export default {
             this.ws.send(JSON.stringify({ type : 'scroll', value : sizeScroll }))
         },
         SetScroll : function( sizeScroll ) {
-            window.scrollY = sizeScroll;
+            window.scrollTo(0, sizeScroll)
         }
 
     },

@@ -32,8 +32,9 @@ export default {
                 let y = event.clientY;
                 self.ws.send(JSON.stringify({ type : 'click', coordsElement : [ x, y ]}))
             });
-            coverage.addEventListener('scroll', function() {
+            window.addEventListener('scroll', function() {
                 let sizeScroll = window.scrollY;
+                console.log(sizeScroll);
                 self.ws.send(JSON.stringify({ type : 'scroll', value : sizeScroll }))
             })
         },
